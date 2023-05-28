@@ -4,8 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
+
+var maxSums = []int{}
 
 func main() {
 	f, err := os.Open("input.in")
@@ -16,7 +19,6 @@ func main() {
 
 	scanner := bufio.NewScanner(f)
 
-	max := 0
 	runningSum := 0
 
 	for scanner.Scan() {
@@ -25,13 +27,15 @@ func main() {
 		runningSum += value
 
 		if len(text) == 0 {
-			if runningSum > max {
-				max = runningSum
-			}
+			maxSums = append(maxSums, runningSum)
 
 			runningSum = 0
 		}
 	}
+	// sort maxSums
+	sort.Slice(maxSums, func(i, j int) bool {
+		return maxSums[i] > maxSums[j]
+	})
 
-	fmt.Println(max)
+	fmt.Println(maxSums[0] + maxSums[1] + maxSums[2])
 }
