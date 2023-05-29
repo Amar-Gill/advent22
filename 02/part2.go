@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	opponent       = map[string]string{"A": "rock", "B": "paper", "C": "scissors"}
-	gameRules      = map[string]map[string]string{"rock": {"win": "paper", "lose": "scissors", "draw": "rock"}, "paper": {"win": "scissors", "lose": "rock", "draw": "paper"}, "scissors": {"win": "rock", "lose": "paper", "draw": "scissors"}}
-	myScore        = 0
-	resultToObtain = map[string]string{"X": "lose", "Y": "draw", "Z": "win"}
+	opponent                 = map[string]string{"A": "rock", "B": "paper", "C": "scissors"}
+	opChoiceVsRequiredResult = map[string]map[string]string{"rock": {"win": "paper", "lose": "scissors", "draw": "rock"}, "paper": {"win": "scissors", "lose": "rock", "draw": "paper"}, "scissors": {"win": "rock", "lose": "paper", "draw": "scissors"}}
+	myScore                  = 0
+	resultToObtain           = map[string]string{"X": "lose", "Y": "draw", "Z": "win"}
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 func getGameResult(opChoice string, requiredResult string) int {
 	result := 0
-	myChoice := gameRules[opChoice][requiredResult]
+	myChoice := opChoiceVsRequiredResult[opChoice][requiredResult]
 
 	fmt.Printf("Op choice is: %s, required result is: %s, so I play: %s\n", opChoice, requiredResult, myChoice)
 
