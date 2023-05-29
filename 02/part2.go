@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	opponent  = map[string]string{"A": "rock", "B": "paper", "C": "scissors"}
-	me        = map[string]string{"X": "rock", "Y": "paper", "Z": "scissors"}
-	gameRules = map[string]map[string]string{"rock": {"defeats": "scissors", "defeatedBy": "paper"}, "paper": {"defeats": "rock", "defeatedBy": "scissors"}, "scissors": {"defeats": "paper", "defeatedBy": "rock"}}
-	myScore   = 0
+	opponent       = map[string]string{"A": "rock", "B": "paper", "C": "scissors"}
+	gameRules      = map[string]map[string]string{"rock": {"win": "paper", "lose": "scissors", "draw": "rock"}, "paper": {"win": "scissors", "lose": "rock", "draw": "paper"}, "scissors": {"win": "rock", "lose": "paper", "draw": "scissors"}}
+	myScore        = 0
+	resultToObtain = map[string]string{"X": "lose", "Y": "draw", "Z": "win"}
 )
 
 func main() {
@@ -31,22 +31,24 @@ func main() {
 
 		choices := strings.Split(text, "")
 		opChoice := opponent[choices[0]]
-		myChoice := me[choices[2]]
-		myScore += getGameResult(opChoice, myChoice)
+		requiredResult := resultToObtain[choices[2]]
+		myScore += getGameResult(opChoice, requiredResult)
 	}
 
 	fmt.Println(myScore)
 }
 
-func getGameResult(opChoice string, myChoice string) int {
+func getGameResult(opChoice string, requiredResult string) int {
 	result := 0
+	myChoice := gameRules[opChoice][requiredResult]
 
-	if opChoice == myChoice {
-		result += 3
-	} else if gameRules[myChoice]["defeats"] == opChoice {
+	fmt.Printf("Op choice is: %s, required result is: %s, so I play: %s\n", opChoice, requiredResult, myChoice)
+
+	switch requiredResult {
+	case "win":
 		result += 6
-	} else {
-		result += 0
+	case "draw":
+		result += 3
 	}
 
 	switch myChoice {
