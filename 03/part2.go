@@ -24,8 +24,9 @@ func main() {
 		rucksacks = append(rucksacks, text)
 		if len(rucksacks) == GROUP_SIZE {
 			runeSet := initializeRuneSet(rucksacks[0])
-			runeSet = updateRuneSet(rucksacks[1], runeSet, 1)
-			runeSet = updateRuneSet(rucksacks[2], runeSet, 2)
+			for i := 1; i < GROUP_SIZE; i++ {
+				runeSet = updateRuneSet(rucksacks[i], runeSet, i)
+			}
 			rucksacks = rucksacks[:0]
 			// should be map length 1 at this point
 			for k := range runeSet {
