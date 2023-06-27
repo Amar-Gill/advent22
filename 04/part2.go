@@ -30,11 +30,13 @@ func main() {
 		elf2Min, _ := strconv.Atoi(elf2Range[0])
 		elf2Max, _ := strconv.Atoi(elf2Range[1])
 
-		if elf1Min >= elf2Min && elf1Max <= elf2Max {
-			numPairs++
-		} else if elf2Min >= elf1Min && elf2Max <= elf1Max {
+		if elf2Min > elf1Max {
+			continue
+		} else if elf1Min > elf2Max {
+			continue
+		} else {
 			numPairs++
 		}
 	}
-	fmt.Println(numPairs) // 456
+	fmt.Println(numPairs) // 808
 }
