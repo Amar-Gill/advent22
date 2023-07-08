@@ -1,5 +1,13 @@
 package main
 
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
 func main() {
 	stack1 := []rune{'N', 'R', 'G', 'P'}
 	stack2 := []rune{'J', 'T', 'B', 'L', 'F', 'G', 'D', 'C'}
@@ -21,4 +29,34 @@ func main() {
 	stacks[7] = stack7
 	stacks[8] = stack8
 	stacks[9] = stack9
+
+	f, err := os.Open("instructions.in")
+	if err != nil {
+		panic("omg")
+	}
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+
+	for scanner.Scan() {
+		text := scanner.Text()
+		tokens := strings.Split(text, " ")
+		numCratesToMove, _ := strconv.Atoi(tokens[1])
+		fromStack, _ := strconv.Atoi(tokens[3])
+		toStack, _ := strconv.Atoi(tokens[5])
+	}
+}
+
+// https://blog.toshima.ru/2021/10/18/go-slice-pop-shift.html
+func pop[T any](s []T) (T, []T) {
+	pop, s1 := s[len(s)-1], s[:len(s)-1]
+	return pop, s1
+}
+
+// returns two slices
+// first is	split from beggining to index
+// second is from index + 1 to end
+func splitSlice[T any](s []T, index int) ([]T, []T) {
+	s1, s2 := s[:len(s)-index-1], s[index+1:]
+	return s1, s2
 }
