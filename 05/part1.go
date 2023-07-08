@@ -44,7 +44,26 @@ func main() {
 		numCratesToMove, _ := strconv.Atoi(tokens[1])
 		fromStack, _ := strconv.Atoi(tokens[3])
 		toStack, _ := strconv.Atoi(tokens[5])
+
+		newFrom, newTo := moveCrates(stacks[fromStack], stacks[toStack], numCratesToMove)
+
+		stacks[fromStack] = newFrom
+		stacks[toStack] = newTo
 	}
+	fmt.Println(stacks)
+}
+
+func moveCrates(fromStack []rune, toStack []rune, numCratesToMove int) ([]rune, []rune) {
+	newFrom := fromStack
+	newTo := toStack
+
+	for i := 0; i < numCratesToMove; i++ {
+
+		pop, s := pop(fromStack)
+		newFrom = s
+		newTo = append(newTo, pop)
+	}
+	return newFrom, newTo
 }
 
 // https://blog.toshima.ru/2021/10/18/go-slice-pop-shift.html
