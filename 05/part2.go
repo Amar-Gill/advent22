@@ -79,9 +79,9 @@ func pop[T any](s []T) (T, []T) {
 }
 
 // returns two slices
-// first is	split from beggining to index
-// second is from index + 1 to end
+// first is	split from beggining to index -1
+// second is from index to end
 func splitSlice[T any](s []T, index int) ([]T, []T) {
-	s1, s2 := s[:len(s)-index-1], s[index+1:]
+	s1, s2 := s[:index], s[index:]
 	return s1, s2
 }
