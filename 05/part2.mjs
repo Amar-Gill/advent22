@@ -23,10 +23,12 @@ for await (const line of file.readLines()) {
   const fromStack = stacks.get(fromStackNum);
   const toStack = stacks.get(toStackNum);
 
-  for (let index = 0; index < numCratesToMove; index++) {
-    const pop = fromStack.pop();
-    toStack.push(pop);
-  }
+  const index = fromStack.length - numCratesToMove;
+  const newFrom = fromStack.slice(0, index);
+  const cratesToMove = fromStack.slice(index);
+
+  stacks.set(fromStackNum, newFrom);
+  stacks.set(toStackNum, toStack.concat(cratesToMove));
 }
 
 console.log(stacks);
