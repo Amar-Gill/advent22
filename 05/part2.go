@@ -63,12 +63,12 @@ func moveCrates(fromStack []rune, toStack []rune, numCratesToMove int) ([]rune, 
 	newFrom := fromStack
 	newTo := toStack
 
-	for i := 0; i < numCratesToMove; i++ {
+	index := len(fromStack) - numCratesToMove
+	split1, split2 := splitSlice[rune](newFrom, index)
 
-		pop, s := pop(newFrom)
-		newFrom = s
-		newTo = append(newTo, pop)
-	}
+	newFrom = split1
+	newTo = append(newTo, split2...)
+
 	return newFrom, newTo
 }
 
