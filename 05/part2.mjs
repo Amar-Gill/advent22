@@ -31,4 +31,8 @@ for await (const line of file.readLines()) {
   stacks.set(toStackNum, toStack.concat(cratesToMove));
 }
 
-console.log(stacks);
+let answer = "";
+stacks.forEach((value) => {
+  answer += value.at(-1);
+});
+console.log(answer);
