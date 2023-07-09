@@ -50,7 +50,13 @@ func main() {
 		stacks[fromStack] = newFrom
 		stacks[toStack] = newTo
 	}
-	fmt.Println(stacks)
+
+	topCrates := []rune{}
+	for i := 1; i < 10; i++ {
+		stack := stacks[i]
+		topCrates = append(topCrates, stack[len(stack)-1])
+	}
+	fmt.Println(string(topCrates))
 }
 
 func moveCrates(fromStack []rune, toStack []rune, numCratesToMove int) ([]rune, []rune) {
@@ -59,7 +65,7 @@ func moveCrates(fromStack []rune, toStack []rune, numCratesToMove int) ([]rune, 
 
 	for i := 0; i < numCratesToMove; i++ {
 
-		pop, s := pop(fromStack)
+		pop, s := pop(newFrom)
 		newFrom = s
 		newTo = append(newTo, pop)
 	}
