@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var markerLength = 4
+var markerLength = 14
 
 func main() {
 	f, err := os.Open("input.in")
